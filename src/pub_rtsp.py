@@ -1,9 +1,9 @@
 import random
 from paho.mqtt import client as mqtt_client
 
-broker = "127.0.0.1"
+broker = ""
 port = 1883
-topic = "device/init"
+topic = ""
 client_id = f"{random.randint(0,100)}"
 
 
@@ -24,15 +24,48 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         payload = msg.payload.decode()
         topic = msg.topic
+        return payload, topic
 
     client.subscribe(topic)
     client.on_message = on_message
 
 
-def main():
+def monitor_id():
+    broker = "127.0.0.1"
+    port = 1883
+    topic = "device/init"
+    client_id = f"{random.randint(0,100)}"
+
     client = connect_mqtt()
-    subscribe(client)
-    client.loop_forever()
+    payload, topic = subscribe(client)
+    # payload = device ID
+    # topic = /device/init
+
+    return payload, topic
+
+def sub_id(device_id):
+    broker = '127.0.0.1' or 'localhost'
+    port = 1883
+    topic = f"device/{device_id}/cmd"
+    client_id = f"{random.randint(0,100)}"
+
+    client = connect_mqtt()
+    payload, topic = subscribe(client)
+    # payload = {cmd:"",url:""}
+    # topic = /device/<id>/cmd, assume topic matches
+
+    try:
+        payload = payload.split(',').split(':')
+        payload_match = ["cmd","","url",""]
+        for char in payload:
+            pass
+    except:
+        pass
+
+
+def main():
+    device_id, init_topic = monitor_id()
+    sub_id(device_id)
 
 
 if __name__ == "__main__":
