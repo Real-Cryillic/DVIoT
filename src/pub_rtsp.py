@@ -43,8 +43,9 @@ def monitor_id():
 
     return payload, topic
 
+
 def sub_id(device_id):
-    broker = '127.0.0.1' or 'localhost'
+    broker = "127.0.0.1" or "localhost"
     port = 1883
     topic = f"device/{device_id}/cmd"
     client_id = f"{random.randint(0,100)}"
@@ -55,8 +56,8 @@ def sub_id(device_id):
     # topic = /device/<id>/cmd, assume topic matches
 
     try:
-        payload = payload.split(',').split(':')
-        payload_match = ["cmd","","url",""]
+        payload = payload.split(",").split(":")
+        payload_match = ["cmd", "", "url", ""]
         for char in payload:
             pass
     except:
