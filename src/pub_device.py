@@ -1,7 +1,7 @@
-'''
+"""
 An MQTT publisher using the Paho Python library to publish a device ID to an MQTT broker.
 Author: Dominic Cunningham
-'''
+"""
 import random
 import string
 from paho.mqtt import client as mqtt_client
@@ -36,13 +36,19 @@ def publish(client: mqtt_client):
         else:
             print(f"Failed to send message to topic {topic}")
 
+
 def generate_id():
-    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(20))
+    return "".join(
+        random.SystemRandom().choice(string.ascii_uppercase + string.digits)
+        for _ in range(20)
+    )
+
 
 def main():
     client = connect_mqtt()
     client.loop_start()
     publish(client)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
