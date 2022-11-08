@@ -6,9 +6,6 @@ Author: Dominic Cunningham
 import random
 from paho.mqtt import client as mqtt_client
 
-global message
-global device_topic
-
 broker = "127.0.0.1"
 port = 1883
 topic = "device/init"
@@ -29,8 +26,6 @@ def connect_mqtt() -> mqtt_client:
 
 
 def subscribe(client: mqtt_client):
-    global message
-    global device_topic
 
     def on_message(client, userdata, msg):
         global message
