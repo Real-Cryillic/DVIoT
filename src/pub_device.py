@@ -4,6 +4,7 @@ Author: Dominic Cunningham
 """
 import random
 import string
+import time
 from paho.mqtt import client as mqtt_client
 
 broker = "127.0.0.1"
@@ -27,7 +28,7 @@ def connect_mqtt() -> mqtt_client:
 
 def publish(client: mqtt_client):
     while True:
-        time.sleep(1000)
+        time.sleep(10)
         msg = f"{generate_id()}"
         result = client.publish(topic, msg)
         status = result[0]
