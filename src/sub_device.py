@@ -1,7 +1,7 @@
-'''
+"""
 An MQTT subscriber using the Paho Python library to subscribe to device/init to obtain a device ID from an MQTT broker.
 Author: Dominic Cunningham
-'''
+"""
 
 import random
 from paho.mqtt import client as mqtt_client
@@ -31,6 +31,7 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     global message
     global device_topic
+
     def on_message(client, userdata, msg):
         global message
         global device_topic
@@ -42,6 +43,7 @@ def subscribe(client: mqtt_client):
     print("Device ID", message, "obtained from", device_topic)
     client.subscribe(topic)
     client.on_message = on_message
+
 
 def main():
     client = connect_mqtt()
