@@ -1,10 +1,10 @@
 import random
 from paho.mqtt import client as mqtt_client
 
-broker = '127.0.0.1'
+broker = "127.0.0.1"
 port = 1883
-topic = 'device/init'
-client_id = f'{random.randint(0,100)}'
+topic = "device/init"
+client_id = f"{random.randint(0,100)}"
 
 
 def connect_mqtt() -> mqtt_client:
@@ -19,6 +19,7 @@ def connect_mqtt() -> mqtt_client:
     client.connect(broker, port)
     return client
 
+
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         payload = msg.payload.decode()
@@ -32,6 +33,7 @@ def main():
     client = connect_mqtt()
     subscribe(client)
     client.loop_forever()
+
 
 if __name__ == "__main__":
     main()
