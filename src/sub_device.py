@@ -35,6 +35,14 @@ def subscribe(client: mqtt_client):
         device_topic = topic
         message = payload
         print("Device ID", message, "obtained from", device_topic)
+        try:
+            file = open("data/id.txt", "w")
+            file.write(message)
+            file.close()
+        except:
+            file = open("data/id.txt", "x")
+            file.write(message)
+            file.close()
     client.subscribe(topic)
     client.on_message = on_message
 
