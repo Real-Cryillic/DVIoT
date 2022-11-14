@@ -39,6 +39,7 @@ def publish(client: mqtt_client):
 
 
 def generate_id():
+    random.seed(0)
     return "".join(
         random.SystemRandom().choice(string.ascii_uppercase + string.digits)
         for _ in range(20)
