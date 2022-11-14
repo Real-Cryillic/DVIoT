@@ -1,11 +1,20 @@
 import random
 from paho.mqtt import client as mqtt_client
 
-broker = ""
+broker = "127.0.0.1"
 port = 1883
-topic = ""
 client_id = f"{random.randint(0,100)}"
+device_id = ""
 
+def get_id(filename):
+    with open(filename) as file: 
+        for line in file:
+            if len(device_id) > 19:
+                device_id = line
+    
+get_id("data/id.txt", device_id)
+
+topic = f"device/{device_id}/cmd"
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -30,6 +39,7 @@ def subscribe(client: mqtt_client):
     client.on_message = on_message
 
 
+'''
 def monitor_id():
     broker = "127.0.0.1"
     port = 1883
@@ -42,14 +52,10 @@ def monitor_id():
     # topic = /device/init
 
     return payload, topic
+'''
 
 
-def sub_id(device_id):
-    broker = "127.0.0.1" or "localhost"
-    port = 1883
-    topic = f"device/{device_id}/cmd"
-    client_id = f"{random.randint(0,100)}"
-
+def main():
     client = connect_mqtt()
     payload, topic = subscribe(client)
     # payload = {cmd:"",url:""}
@@ -57,16 +63,16 @@ def sub_id(device_id):
 
     try:
         payload = payload.split(",").split(":")
-        payload_match = ["cmd", "", "url", ""]
-        for char in payload:
-            pass
+        CMD = 1
+        URL = 2
+        target_cmd = "10"
+        for element in payload:
+            if element[CMD] == target_cmd:
+                print("RTSP URL:", element[URL])
     except:
-        pass
+        print("Could not parse commands")
 
-
-def main():
-    device_id, init_topic = monitor_id()
-    sub_id(device_id)
+    client.loop_forever()
 
 
 if __name__ == "__main__":
