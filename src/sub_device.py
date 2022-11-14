@@ -34,8 +34,7 @@ def subscribe(client: mqtt_client):
         topic = msg.topic
         device_topic = topic
         message = payload
-
-    print("Device ID", message, "obtained from", device_topic)
+        print("Device ID", message, "obtained from", device_topic)
     client.subscribe(topic)
     client.on_message = on_message
 
