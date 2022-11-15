@@ -52,11 +52,16 @@ def subscribe(client: mqtt_client):
         target_cmd = "10"
         CMD_NAME = 0
         CMD_VALUE = 1
+        URL_NAME = 0
+        URL_VALUE = 1
         command_payload = command_payload.split(':')
+        url_payload = url_payload.split(':', 1)
         if command_payload[CMD_NAME].lower() == "cmd":
             if command_payload[CMD_VALUE] == target_cmd:
                 print("Command value match")
-                
+                if url_payload[URL_NAME].lower() == "url":
+                    print("RTSPS URL match:", url_payload[URL_VALUE])
+
     client.subscribe(topic)
     client.on_message = on_message
 
