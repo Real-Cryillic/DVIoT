@@ -37,7 +37,16 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         payload = msg.payload.decode()
         topic = msg.topic
-        return payload
+        try:
+            payload = payload.split(",").split(":")
+            CMD = 1
+            URL = 2
+            target_cmd = "10"
+            for element in payload:
+                if element[CMD] == target_cmd:
+                    print("RTSP URL:", element[URL])
+        except:
+            print("Could not parse commands")
 
     client.subscribe(topic)
     client.on_message = on_message
@@ -64,18 +73,6 @@ def main():
     payload = subscribe(client)
     # payload = {cmd:"",url:""}
     # topic = /device/<id>/cmd, assume topic matches
-
-    try:
-        payload = payload.split(",").split(":")
-        CMD = 1
-        URL = 2
-        target_cmd = "10"
-        for element in payload:
-            if element[CMD] == target_cmd:
-                print("RTSP URL:", element[URL])
-    except:
-        print("Could not parse commands")
-
     client.loop_forever()
 
 
