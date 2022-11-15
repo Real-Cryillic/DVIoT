@@ -13,7 +13,7 @@ def get_id(filename, id):
                 id = line
                 print(id)
     
-get_id("data/id.txt", device_id)
+get_id("id.txt", device_id)
 
 print("Gathered: ", device_id)
 
