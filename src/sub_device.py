@@ -26,7 +26,6 @@ def connect_mqtt() -> mqtt_client:
 
 
 def subscribe(client: mqtt_client):
-
     def on_message(client, userdata, msg):
         global message
         global device_topic
@@ -43,6 +42,7 @@ def subscribe(client: mqtt_client):
             f = open("id.txt", "w")
             f.write(message)
             f.close()
+
     client.subscribe(topic)
     client.on_message = on_message
 

@@ -6,19 +6,22 @@ port = 1883
 client_id = f"{random.randint(0,100)}"
 device_id = ""
 
+
 def get_id(filename):
-    with open(filename) as file: 
+    with open(filename) as file:
         for line in file:
             if len(line) > 19:
                 print(line)
                 return line
-    
+
+
 id = get_id("id.txt")
 device_id = id
 
 print("Gathered: ", device_id)
 
 topic = f"device/{device_id}/cmd"
+
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -40,8 +43,8 @@ def subscribe(client: mqtt_client):
         print("Topic:", topic)
         print("Payload:", payload)
         print("Parsing payload...")
-        payload = payload.replace('{','')
-        payload = payload.replace('}','')
+        payload = payload.replace("{", "")
+        payload = payload.replace("}", "")
         payload = payload.split(",")
         CMD = 0
         URL = 1
@@ -54,8 +57,8 @@ def subscribe(client: mqtt_client):
         CMD_VALUE = 1
         URL_NAME = 0
         URL_VALUE = 1
-        command_payload = command_payload.split(':')
-        url_payload = url_payload.split(':', 1)
+        command_payload = command_payload.split(":")
+        url_payload = url_payload.split(":", 1)
         if command_payload[CMD_NAME].lower() == "cmd":
             if command_payload[CMD_VALUE] == target_cmd:
                 print("Command value match")
@@ -72,22 +75,6 @@ def subscribe(client: mqtt_client):
 
     client.subscribe(topic)
     client.on_message = on_message
-
-
-'''
-def monitor_id():
-    broker = "127.0.0.1"
-    port = 1883
-    topic = "device/init"
-    client_id = f"{random.randint(0,100)}"
-
-    client = connect_mqtt()
-    payload, topic = subscribe(client)
-    # payload = device ID
-    # topic = /device/init
-
-    return payload, topic
-'''
 
 
 def main():

@@ -12,6 +12,7 @@ port = 1883
 topic = "device/init"
 client_id = f"{random.randint(0,1000)}"
 
+
 def generate_id():
     random.seed(0)
     return "".join(
@@ -19,7 +20,9 @@ def generate_id():
         for _ in range(20)
     )
 
+
 id = generate_id()
+
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
