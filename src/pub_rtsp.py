@@ -50,10 +50,13 @@ def subscribe(client: mqtt_client):
         print(command_payload)
         print(url_payload)
         target_cmd = "10"
-            # for element in payload:
-                # if element[CMD] == target_cmd:
-                    # print("RTSP URL:", element[URL])
-
+        CMD_NAME = 0
+        CMD_VALUE = 1
+        command_payload = command_payload.split(':')
+        if command_payload[CMD_NAME].lower() == "cmd":
+            if command_payload[CMD_VALUE] == target_cmd:
+                print("Command value match")
+                
     client.subscribe(topic)
     client.on_message = on_message
 
