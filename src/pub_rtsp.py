@@ -43,6 +43,8 @@ def subscribe(client: mqtt_client):
         payload = payload.split(",")
         CMD = 0
         URL = 1
+        payload.replace('{','')
+        payload.replace('}','')
         command_payload = payload[CMD]
         url_payload = payload[URL]
         print(command_payload)
