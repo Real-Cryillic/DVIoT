@@ -37,7 +37,7 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         payload = msg.payload.decode()
         topic = msg.topic
-        return payload, topic
+        return payload
 
     client.subscribe(topic)
     client.on_message = on_message
@@ -61,7 +61,7 @@ def monitor_id():
 
 def main():
     client = connect_mqtt()
-    payload, topic = subscribe(client)
+    payload = subscribe(client)
     # payload = {cmd:"",url:""}
     # topic = /device/<id>/cmd, assume topic matches
 
