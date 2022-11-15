@@ -37,6 +37,8 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         payload = msg.payload.decode()
         topic = msg.topic
+        print("Topic:", topic)
+        print("Payload:", payload)
         try:
             payload = payload.split(",").split(":")
             CMD = 1
