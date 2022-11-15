@@ -63,11 +63,11 @@ def subscribe(client: mqtt_client):
                     print("RTSPS URL match:", url_payload[URL_VALUE])
                     try:
                         f = open("url.txt", "x")
-                        f.write(message)
+                        f.write(url_payload[URL_VALUE])
                         f.close()
                     except:
                         f = open("url.txt", "w")
-                        f.write(message)
+                        f.write(url_payload[URL_VALUE])
                         f.close()
 
     client.subscribe(topic)
