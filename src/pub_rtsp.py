@@ -6,13 +6,16 @@ port = 1883
 client_id = f"{random.randint(0,100)}"
 device_id = ""
 
-def get_id(filename):
+def get_id(filename, id):
     with open(filename) as file: 
         for line in file:
-            if len(device_id) > 19:
-                device_id = line
+            if len(line) > 19:
+                id = line
+                print(id)
     
 get_id("data/id.txt", device_id)
+
+print("Gathered: ", device_id)
 
 topic = f"device/{device_id}/cmd"
 
