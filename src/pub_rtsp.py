@@ -40,8 +40,8 @@ def subscribe(client: mqtt_client):
         print("Topic:", topic)
         print("Payload:", payload)
         print("Parsing payload...")
-        payload.replace('{','')
-        payload.replace('}','')
+        payload = payload.replace('{','')
+        payload = payload.replace('}','')
         payload = payload.split(",")
         CMD = 0
         URL = 1
