@@ -61,6 +61,14 @@ def subscribe(client: mqtt_client):
                 print("Command value match")
                 if url_payload[URL_NAME].lower() == "url":
                     print("RTSPS URL match:", url_payload[URL_VALUE])
+                    try:
+                        f = open("url.txt", "x")
+                        f.write(message)
+                        f.close()
+                    except:
+                        f = open("url.txt", "w")
+                        f.write(message)
+                        f.close()
 
     client.subscribe(topic)
     client.on_message = on_message
