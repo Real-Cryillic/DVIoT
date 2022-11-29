@@ -1,4 +1,5 @@
 import random
+import subprocess
 from paho.mqtt import client as mqtt_client
 
 broker = "127.0.0.1"
@@ -72,6 +73,8 @@ def subscribe(client: mqtt_client):
                         f = open("../src/url.txt", "w")
                         f.write(url_payload[URL_VALUE])
                         f.close()
+                        
+                    subprocess.call("../deploy/update.sh")
 
     client.subscribe(topic)
     client.on_message = on_message
