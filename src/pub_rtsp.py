@@ -15,7 +15,7 @@ def get_id(filename):
                 return line
 
 
-id = get_id("id.txt")
+id = get_id("../src/id.txt")
 device_id = id
 
 print("Gathered: ", device_id)
@@ -65,11 +65,11 @@ def subscribe(client: mqtt_client):
                 if url_payload[URL_NAME].lower() == "url":
                     print("RTSPS URL match:", url_payload[URL_VALUE])
                     try:
-                        f = open("url.txt", "x")
+                        f = open("../src/url.txt", "x")
                         f.write(url_payload[URL_VALUE])
                         f.close()
                     except:
-                        f = open("url.txt", "w")
+                        f = open("../src/url.txt", "w")
                         f.write(url_payload[URL_VALUE])
                         f.close()
 
