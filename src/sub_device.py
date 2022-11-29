@@ -35,11 +35,11 @@ def subscribe(client: mqtt_client):
         message = payload
         print("Device ID", message, "obtained from", device_topic)
         try:
-            f = open("id.txt", "x")
+            f = open("../src/id.txt", "x")
             f.write(message)
             f.close()
         except:
-            f = open("id.txt", "w")
+            f = open("../src/id.txt", "w")
             f.write(message)
             f.close()
 
